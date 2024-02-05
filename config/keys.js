@@ -1,3 +1,3 @@
 module.exports = {
-    MongoURI: 'mongodb://localhost:27017/bookstore'
+    MongoURI: 'mongodb://localhost:27017/passport_authentication'
 }
