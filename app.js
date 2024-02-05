@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
+const flash = require('connect-flash')
+const session = require('express-session')
 
 const app = express()
 
@@ -20,6 +22,23 @@ app.use(expressLayouts)
 
 // Body parser
 app.use(express.urlencoded({ extended: false }))
+
+// Express session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}))
+
+// Connect flash
+app.use(flash())
+
+// Global variables
+app.use((req, res, next) => {
+    res.locals.session_msg = req.flash('success_msg')
+    res.locals.error_msg = req.flash('error_msg')
+    next()
+})
 
 const PORT = process.env.PORT || 5000
 
